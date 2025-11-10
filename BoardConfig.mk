@@ -21,7 +21,7 @@ TARGET_2ND_CPU_VARIANT := generic
 TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a55
 
 # Bootloader
-TARGET_BOOTLOADER_BOARD_NAME := exynos990
+TARGET_BOOTLOADER_BOARD_NAME := exynos9820
 TARGET_NO_BOOTLOADER := true
 
 # Platform
@@ -35,28 +35,25 @@ BOARD_INCLUDE_RECOVERY_DTBO := true
 BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
 
 BOARD_KERNEL_CMDLINE := \
-    androidboot.hardware=exynos990 \
+    androidboot.hardware=exynos9820 \
     loop.max_part=7
 
-BOARD_KERNEL_PAGESIZE := 4096
+BOARD_KERNEL_PAGESIZE := 2048
 BOARD_MKBOOTIMG_ARGS := \
     --dtb $(DEVICE_PATH)/prebuilt/dtb.img \
+    --base 0x10000000 \
+    --kernel_offset 0x00008000 \
+    --pagesize 2048 \
     --ramdisk_offset 0x01000000 \
-    --dtb_offset 0 \
     --os_version 14.0.0 \
     --tags_offset 0x00000100 \
-    --header_version 2
+    --header_version 1
 
 BOARD_ROOT_EXTRA_FOLDERS := \
-    carrier \
-    data_mirror \
     efs \
     keydata \
     keyrefuge \
-    omr \
-    optics \
-    prism \
-    spu
+    omr
 
 # SELinux
 BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
@@ -76,15 +73,15 @@ TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
 BOARD_FLASH_BLOCK_SIZE := 4096
 BOARD_BOOTIMAGE_PARTITION_SIZE := 61865984
 BOARD_DTBOIMG_PARTITION_SIZE := 8388608
-BOARD_RECOVERYIMAGE_PARTITION_SIZE := 69009408
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 67633152
 
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
 # Dynamic partitions
-BOARD_SUPER_PARTITION_SIZE := 9437184000
+BOARD_SUPER_PARTITION_SIZE := 5976883200
 BOARD_SUPER_PARTITION_GROUPS := group_basic
-BOARD_GROUP_BASIC_SIZE := 9432989696
+BOARD_GROUP_BASIC_SIZE := 5972688896
 BOARD_GROUP_BASIC_PARTITION_LIST := system odm product vendor
 
 BOARD_PARTITION_LIST := $(call to-upper, $(BOARD_GROUP_BASIC_PARTITION_LIST))
@@ -107,12 +104,11 @@ RECOVERY_SDCARD_ON_DATA := true
 TARGET_USES_MKE2FS := true
 
 # TWRP specific build flags
-TW_DEVICE_VERSION := ExtremeXT_v2
+TW_DEVICE_VERSION := Skyserver@team
 TW_THEME := portrait_hdpi
 TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel/brightness"
 TW_MAX_BRIGHTNESS := 25500
 TW_DEFAULT_BRIGHTNESS := 12800
-TW_CUSTOM_CPU_TEMP_PATH := "/sys/class/thermal/thermal_zone7/temp"
 TW_Y_OFFSET := 100
 TW_H_OFFSET := -100
 TW_NO_REBOOT_BOOTLOADER := true
