@@ -54,6 +54,10 @@ BOARD_ROOT_EXTRA_FOLDERS := \
     keyrefuge \
     omr
 
+# RAMDisk Compression
+LZMA_RAMDISK_TARGETS := recovery,boot
+BOARD_RAMDISK_USE_LZMA := true
+
 # SELinux
 BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
 
