@@ -40,7 +40,6 @@ BOARD_KERNEL_CMDLINE := \
 
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_MKBOOTIMG_ARGS := \
-    --dtb $(DEVICE_PATH)/prebuilt/dtb.img \
     --base 0x10000000 \
     --kernel_offset 0x00008000 \
     --pagesize 2048 \
